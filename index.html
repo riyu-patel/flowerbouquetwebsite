@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Flower Bukkey — Fresh Bouquets & Gifts</title>
+  <meta name="description" content="Flower Bukkey — beautiful, hand-tied bouquets delivered fresh. Browse bouquets, customize, and order online." />
+  <style>
+    :root{
+      --accent:#E76F51; /* coral */
+      --accent-2:#2A9D8F; /* teal */
+      --muted:#6B7280;
+      --bg:#FEFDFB;
+      --card:#FFFFFF;
+      --radius:14px;
+      --shadow: 0 8px 30px rgba(20,20,30,0.08);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:linear-gradient(180deg,#FFF 0%, #FEF7F2 100%);color:#111;font-size:16px;line-height:1.45}
+    .container{max-width:1100px;margin:0 auto;padding:32px}
+    header{display:flex;align-items:center;justify-content:space-between;padding:10px 0}
+    .brand{display:flex;gap:12px;align-items:center}
+    .logo{width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:20px;box-shadow:var(--shadow)}
+    nav a{margin-left:18px;color:var(--muted);text-decoration:none;font-weight:600}
+    .hero{display:grid;grid-template-columns:1fr 420px;gap:28px;align-items:center;margin-top:18px}
+    .hero-card{background:var(--card);padding:36px;border-radius:var(--radius);box-shadow:var(--shadow)}
+    h1{margin:0 0 12px;font-size:32px}
+    p.lead{color:var(--muted);margin:0 0 18px}
+    .cta{display:flex;gap:12px}
+    .btn{background:var(--accent);color:white;padding:12px 18px;border-radius:12px;border:0;font-weight:700;cursor:pointer}
+    .btn.secondary{background:transparent;color:var(--accent);border:2px solid rgba(231,111,81,0.14)}
+    .hero-visual{border-radius:14px;overflow:hidden;box-shadow:var(--shadow);background:linear-gradient(180deg, #fff, #fff)}
+    .hero-visual img{display:block;width:100%;height:100%;object-fit:cover}
+
+    /* Product grid */
+    .section{margin:44px 0}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
+    .card{background:var(--card);padding:14px;border-radius:12px;box-shadow:0 6px 22px rgba(20,20,30,0.06);display:flex;flex-direction:column}
+    .card img{width:100%;height:170px;object-fit:cover;border-radius:10px}
+    .card h3{margin:12px 0 6px;font-size:18px}
+    .price{font-weight:800;color:var(--accent)}
+    .meta{color:var(--muted);font-size:14px}
+    .card .actions{margin-top:auto;display:flex;gap:8px}
+
+    /* Features */
+    .features{display:flex;gap:12px;flex-wrap:wrap}
+    .feature{flex:1;min-width:200px;background:linear-gradient(180deg,#fff,#FFFBF9);padding:16px;border-radius:12px;box-shadow:0 6px 18px rgba(20,20,30,0.04)}
+
+    /* Footer */
+    footer{border-top:1px solid #F1E9E6;padding:28px 0;color:var(--muted);display:flex;justify-content:space-between;align-items:center}
+
+    /* Modal */
+    .modal-backdrop{position:fixed;inset:0;background:rgba(10,10,12,0.45);display:flex;align-items:center;justify-content:center;padding:24px;visibility:hidden;opacity:0;transition:all .18s}
+    .modal{background:white;padding:20px;border-radius:12px;max-width:720px;width:100%;box-shadow:var(--shadow)}
+    .modal.open{transform:translateY(0)}
+    .modal-backdrop.show{visibility:visible;opacity:1}
+    .close{background:transparent;border:0;font-weight:700;font-size:18px;cursor:pointer}
+
+    /* Responsive */
+    @media (max-width:900px){
+      .hero{grid-template-columns:1fr}
+      .hero-visual{height:260px}
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="brand">
+        <div class="logo">FB</div>
+        <div>
+          <div style="font-weight:800">Flower Bukkey</div>
+          <div style="font-size:13px;color:var(--muted)">Fresh · Hand-tied · Delivered</div>
+        </div>
+      </div>
+      <nav>
+        <a href="#shop">Shop</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+        <a href="#cart" id="cart-link">Cart (<span id="cart-count">0</span>)</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-card">
+          <h1>Bright blooms for every moment</h1>
+          <p class="lead">Hand-tied bouquets, sustainably sourced flowers, same-day delivery in selected cities. Send love, say thanks, celebrate.</p>
+          <div class="cta">
+            <button class="btn" onclick="scrollToShop()">Shop Bouquets</button>
+            <button class="btn secondary" onclick="openModal('customize')">Customize</button>
+          </div>
+
+          <div style="margin-top:22px" class="features">
+            <div class="feature"><strong>Same-day delivery</strong><div class="meta">Order before 3 PM</div></div>
+            <div class="feature"><strong>Fresh from farms</strong><div class="meta">Locally sourced & packed</div></div>
+            <div class="feature"><strong>Gift wrap</strong><div class="meta">Add a custom note</div></div>
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <img src="https://images.unsplash.com/photo-1501004318641-b39e6451bec6?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=1c9f0e8c6342b1d2b3b2bd4f4d1c7a9f" alt="Bouquet of flowers" />
+        </div>
+      </section>
+
+      <section id="shop" class="section">
+        <h2 style="margin:0 0 14px">Our Bestsellers</h2>
+        <div class="grid" id="product-grid">
+          <!-- product cards inserted by JS -->
+        </div>
+      </section>
+
+      <section id="about" class="section">
+        <h2 style="margin:0 0 14px">About Flower Bukkey</h2>
+        <p class="lead">Flower Bukkey began with the idea that flowers should be simple to send and always fresh. We partner with local growers, hand-arrange each bouquet, and deliver with care.</p>
+      </section>
+
+      <section id="contact" class="section">
+        <h2 style="margin:0 0 14px">Contact & Orders</h2>
+        <div style="display:flex;gap:18px;flex-wrap:wrap">
+          <form id="contact-form" style="flex:1;min-width:260px;background:var(--card);padding:16px;border-radius:12px;box-shadow:var(--shadow)">
+            <label style="display:block;margin-bottom:8px">Name<input required name="name" style="width:100%;padding:10px;margin-top:6px;border-radius:8px;border:1px solid #EFEFEF" /></label>
+            <label style="display:block;margin-bottom:8px">Email<input required name="email" type="email" style="width:100%;padding:10px;margin-top:6px;border-radius:8px;border:1px solid #EFEFEF" /></label>
+            <label style="display:block;margin-bottom:8px">Message<textarea name="message" rows="3" style="width:100%;padding:10px;margin-top:6px;border-radius:8px;border:1px solid #EFEFEF"></textarea></label>
+            <button class="btn" type="submit">Send Message</button>
+          </form>
+
+          <div style="flex:1;min-width:260px;display:flex;flex-direction:column;gap:10px">
+            <div style="background:var(--card);padding:14px;border-radius:12px;box-shadow:var(--shadow)">
+              <strong>Visit Us</strong>
+              <div class="meta">123 Blossom Lane, Garden City</div>
+            </div>
+            <div style="background:var(--card);padding:14px;border-radius:12px;box-shadow:var(--shadow)">
+              <strong>Call</strong>
+              <div class="meta">+91 98765 43210</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <footer>
+      <div>&copy; <span id="year"></span> Flower Bukkey</div>
+      <div style="font-size:14px;color:var(--muted)">Made with ❤️ — Free demo site</div>
+    </footer>
+  </div>
+
+  <!-- Modal area -->
+  <div class="modal-backdrop" id="modal-backdrop" role="dialog" aria-hidden="true">
+    <div class="modal" role="document">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+        <strong id="modal-title">Customize Bouquet</strong>
+        <button class="close" onclick="closeModal()">✕</button>
+      </div>
+      <div id="modal-body">
+        <p class="meta">Choose size, add note, and delivery instructions.</p>
+        <div style="display:flex;gap:8px;margin-top:12px">
+          <select id="size-select" style="padding:8px;border-radius:8px;border:1px solid #EFEFEF">
+            <option value="small">Small — ₹499</option>
+            <option value="medium">Medium — ₹799</option>
+            <option value="large">Large — ₹1199</option>
+          </select>
+          <input id="note" placeholder="Add a short note (optional)" style="flex:1;padding:8px;border-radius:8px;border:1px solid #EFEFEF" />
+        </div>
+        <div style="margin-top:12px;text-align:right">
+          <button class="btn" onclick="addToCartFromModal()">Add to cart</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Basic data for demo products
+    const products = [
+      {id:1,name:'Rose Radiance',price:849,desc:'Classic red roses, hand-tied.',img:'https://images.unsplash.com/photo-1518976024611-ecf9e2f0ae5f?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=8d7f0a6bd3b1ae7b2c'},
+      {id:2,name:'Sunshine Mix',price:699,desc:'Sunflowers with seasonal filler.',img:'https://images.unsplash.com/photo-1504198453319-5ce911bafcde?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=2e9f2b7a7a7b'},
+      {id:3,name:'Pastel Dreams',price:1199,desc:'Soft pastels — perfect for anniversaries.',img:'https://images.unsplash.com/photo-1490730141103-6cac27aaab94?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=3d6d8a1a'},
+      {id:4,name:'Wild Meadow',price:599,desc:'Rustic wildflower bouquet, wrapped in paper.',img:'https://images.unsplash.com/photo-1469474968028-56623f02e42e?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=6d7a5c1a'},
+      {id:5,name:'Elegant Lilies',price:1299,desc:'Long-stem lilies with eucalyptus.',img:'https://images.unsplash.com/photo-1520975698512-7c2b6bb9c7d4?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=9b3f1f9a'},
+      {id:6,name:'Pocket Posy',price:349,desc:'Small posy — a sweet surprise.',img:'https://images.unsplash.com/photo-1502685104226-ee32379fefbe?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=bb4d1a1c'}
+    ];
+
+    const grid = document.getElementById('product-grid');
+    const cartCount = document.getElementById('cart-count');
+    const year = document.getElementById('year');
+    year.textContent = new Date().getFullYear();
+
+    // Simple cart in local storage
+    const CART_KEY = 'fb_cart_v1';
+    function loadCart(){
+      try{ return JSON.parse(localStorage.getItem(CART_KEY)) || [] }catch(e){return []}
+    }
+    function saveCart(c){ localStorage.setItem(CART_KEY, JSON.stringify(c)) }
+    function updateCartUI(){ const c=loadCart(); cartCount.textContent=c.reduce((s,i)=>s+i.qty,0) }
+
+    function renderProducts(){
+      grid.innerHTML='';
+      products.forEach(p=>{
+        const el = document.createElement('div'); el.className='card';
+        el.innerHTML = `
+          <img src="${p.img}" alt="${p.name}" />
+          <h3>${p.name}</h3>
+          <div class="meta">${p.desc}</div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px">
+            <div class="price">₹${p.price}</div>
+            <div style="display:flex;gap:8px">
+              <button class="btn secondary" onclick="openModal('customize', ${p.id})">Customize</button>
+              <button class="btn" onclick="addToCart(${p.id})">Add</button>
+            </div>
+          </div>
+        `;
+        grid.appendChild(el);
+      })
+    }
+
+    function addToCart(id){
+      const product = products.find(x=>x.id===id);
+      if(!product) return alert('Product not found');
+      const cart = loadCart();
+      const item = cart.find(i=>i.id===id);
+      if(item) item.qty += 1; else cart.push({id,qty:1,price:product.price,name:product.name});
+      saveCart(cart); updateCartUI();
+      animateAddToCart();
+    }
+
+    function openModal(mode, productId){
+      const backdrop = document.getElementById('modal-backdrop');
+      backdrop.classList.add('show'); backdrop.setAttribute('aria-hidden','false');
+      const title = document.getElementById('modal-title');
+      if(mode==='customize' && productId){
+        const p = products.find(x=>x.id===productId);
+        title.textContent = 'Customize — ' + (p ? p.name : 'Bouquet');
+        backdrop.dataset.productId = productId;
+      } else {
+        title.textContent = 'Customize Bouquet';
+        delete backdrop.dataset.productId;
+      }
+    }
+    function closeModal(){ const b=document.getElementById('modal-backdrop'); b.classList.remove('show'); b.setAttribute('aria-hidden','true'); }
+
+    function addToCartFromModal(){
+      const b=document.getElementById('modal-backdrop');
+      const pid = b.dataset.productId ? Number(b.dataset.productId) : null;
+      if(pid){ addToCart(pid); } else {
+        // add default small bouquet
+        addToCart(4);
+      }
+      closeModal();
+    }
+
+    function animateAddToCart(){
+      const link = document.getElementById('cart-link');
+      link.animate([{transform:'scale(1)'},{transform:'scale(1.08)'},{transform:'scale(1)'}],{duration:300});
+    }
+
+    function scrollToShop(){ document.getElementById('shop').scrollIntoView({behavior:'smooth'}) }
+
+    // Contact form handler (demo only)
+    document.getElementById('contact-form').addEventListener('submit', (e)=>{
+      e.preventDefault(); alert('Thanks! We received your message — this is a demo.'); e.target.reset();
+    })
+
+    // Init
+    renderProducts(); updateCartUI();
+
+    // Close modal by clicking backdrop
+    document.getElementById('modal-backdrop').addEventListener('click', (e)=>{ if(e.target.id==='modal-backdrop') closeModal(); })
+  </script>
+</body>
+</html>
